@@ -1,0 +1,29 @@
+# Menyembunyikan daftar isi folder jika tidak ada index file
+Options -Indexes
+
+# Menyembunyikan tanda/server signature di error page
+ServerSignature Off
+
+# Aktifkan URL Rewrite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Menghapus ekstensi .html di URL
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^([a-zA-Z0-9_-]+)$ $1.html [L]
+
+    # Mengarahkan request tanpa ekstensi .html ke file yang sesuai
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.html -f
+    RewriteRule ^(.*)$ $1.html [NC,L]
+</IfModule>
+
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^([^/]+)/?$ $1.php [L]
+
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ $1.htmlp [L]
